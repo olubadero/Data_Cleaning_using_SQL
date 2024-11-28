@@ -265,7 +265,7 @@ SET Date_of_Birth = STR_TO_DATE(Date_of_Birth, '%m/%d/%Y'),
 	checkout_date = STR_TO_DATE(checkout_date, '%m/%d/%Y');
 ```
 
-#### Finally, I changed data type of date of the two columns to date.
+#### I changed data type of date of the two columns to date.
 
 ```sql 
 ALTER TABLE Hotel
@@ -275,6 +275,17 @@ ALTER TABLE Hotel
 
 ![image](https://github.com/user-attachments/assets/fd1edd83-6470-4d67-9b4c-ac9be4861956)
 
-### This concludes the project of cleaning up this over 15, 000 row data for analysis. I hope you understood and enjoyed the process. Thank you for your time.
+#### Finally, I tried to identify if there are any duplicates in the data:
+
+```sql 
+SELECT ID, `Full Name`, Gender, Date_of_Birth, Checkout_Date, Purpose, Source,
+	`Guest Satisfaction`, `NPS Ratings`, Feedback, Category, `Facility Ratings`, COUNT(*)
+FROM hotel
+GROUP BY ID, `Full Name`, Gender, Date_of_Birth, Checkout_Date, Purpose, Source,
+	`Guest Satisfaction`, `NPS Ratings`, Feedback, Category, `Facility Ratings`
+HAVING COUNT(*) > 1;
+```
+
+#### There are no duplicate within the data. This concludes the project of cleaning up this over 15, 000 row data, which is now ready for analysis. I hope you understood and enjoyed the process. Thank you for your time.
 
 

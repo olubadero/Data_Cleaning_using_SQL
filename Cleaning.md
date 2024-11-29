@@ -34,7 +34,7 @@ RENAME TABLE `Hotel Feedback` TO Hotel;
 
 ## `Exploratory Data Analysis and Data Cleaning Process:`
 
-#### Added new Columns to the data to store data that split columns will be stored
+#### Added new Columns to store split columns data:
 
 ```sql 
 ALTER TABLE Hotel

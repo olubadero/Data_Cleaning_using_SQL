@@ -32,7 +32,7 @@ SELECT COUNT(*) FROM `Hotel Feedback`;
 RENAME TABLE `Hotel Feedback` TO Hotel;
 ```
 
-#### Create a copy of the imported table for back up
+#### Created a copy of the imported table for back up.
 
 ```sql 
 CREATE TABLE Hotel_Copy AS SELECT * FROM Hotel;

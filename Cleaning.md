@@ -293,6 +293,71 @@ GROUP BY ID, `Full Name`, Gender, Date_of_Birth, Checkout_Date, Purpose, Source,
 HAVING COUNT(*) > 1;
 ```
 
-#### There are no duplicate within the data. This concludes the project of cleaning up this over 15, 000 row data, which is now ready for analysis. I hope you understood and enjoyed the process. Thank you for your time.
+#### There are no duplicate within the data. 
+
+#### Now I will go on to add Calculated Columns that will help in the analysis of the data, such as:
+
+- Hotel ID as there is no unique identifier/Primary Key within the data. I dropped the ID column;
+- Age;
+- Check out Day;
+- Check out Month;
+- Binning of NPS Ratings;
+- Binning of Guest Satisfaction;
+- Binning of Facility Ratings.
+
+```sql
+ALTER TABLE Hotel
+      ADD COLUMN Hotel_ID INT PRIMARY KEY Auto_Increment FIRST,
+      ADD COLUMN Age INT AFTER Date_of_Birth,
+      ADD COLUMN Checkout_Day TEXT AFTER Checkout_Date,
+      ADD COLUMN Month TEXT AFTER Checkout_Date,
+      ADD COLUMN NPS_Metric TEXT AFTER `NPS Ratings`,
+      ADD COLUMN Satisfaction_Metric TEXT AFTER  `Guest Satisfaction`,
+      ADD COLUMN Ratings_Metric TEXT AFTER `Facility Ratings`,
+      ADD COLUMN Age_Group VARCHAR(20) AFTER Age,
+      DROP COLUMN ID;
+```
+
+#### - Fill in the columns created with data:
+
+SELECT timestampdiff(YEAR, date_of_birth, curdate())
+FROM hotel; 
+
+-- Add age data
+```sql
+UPDATE hotel
+SET Age =  timestampdiff(YEAR, date_of_birth, curdate()), 
+    Checkout_day = dayname(checkout_date),
+    Month = monthname(checkout_date),
+    Satisfaction_Metric = CASE WHEN `Guest Satisfaction` = 1 THEN 'Very Unsatisfied'
+				WHEN `Guest Satisfaction` = 2 THEN 'Unsatisfied' 
+                              WHEN `Guest Satisfaction` = 3 THEN 'Neutral'
+                              WHEN `Guest Satisfaction` = 4 THEN 'Satisfied'
+                              WHEN `Guest Satisfaction` = 5 THEN 'Very Satisfied' END,
+    Ratings_Metric =  CASE WHEN `Facility ratings` = 1 THEN 'Basic'
+			   WHEN `Facility ratings` = 2 THEN 'Standard' 
+                           WHEN `Facility ratings` = 3 THEN 'Comfort'
+                           WHEN `Facility ratings` = 4 THEN 'Superior'
+                           ELSE 'Luxury' END,
+     NPS_Metric = CASE WHEN `NPS Ratings` BETWEEN 1 AND 6 THEN 'Unhappy Customer'
+					WHEN `NPS Ratings` BETWEEN 7 AND 8 THEN 'Satisfied Customer' 
+                              ELSE 'Loyal Customer'
+                              END,
+     Age_Group = CASE WHEN Age BETWEEN 0 AND 19 THEN '0-19yrs'
+			WHEN Age BETWEEN 20 AND 39 THEN '20-39yrs'
+	                  WHEN Age BETWEEN 40 AND 59 THEN '40-59yrs'
+	                  WHEN Age BETWEEN 60 AND 79 THEN '60-79yrs'
+	                  ELSE 'Above 80yrs' END;
+```
+
+### Here is an excerpt of the cleaned table:
+
+![image](https://github.com/user-attachments/assets/b657ff37-69d0-4495-b0f5-f7e27fbcf468)
+
+
+![image](https://github.com/user-attachments/assets/84418068-ddb7-42be-8df0-c712b336bd7f)
+
+
+#### This concludes the project of cleaning up this over 15, 000 row data, which is now ready for analysis. I hope you understood and enjoyed the process. Thank you for your time.
 
 

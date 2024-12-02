@@ -32,6 +32,13 @@ SELECT COUNT(*) FROM `Hotel Feedback`;
 RENAME TABLE `Hotel Feedback` TO Hotel;
 ```
 
+#### Create a copy of the imported table for back up
+
+```sql 
+CREATE TABLE Hotel_Copy AS SELECT * FROM Hotel;
+```
+
+
 ## `Exploratory Data Analysis and Data Cleaning Process:`
 
 #### Added new Columns to store split columns data:

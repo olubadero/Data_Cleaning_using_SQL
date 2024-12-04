@@ -358,6 +358,10 @@ SET Age =  timestampdiff(YEAR, date_of_birth, curdate()),
 ![image](https://github.com/user-attachments/assets/84418068-ddb7-42be-8df0-c712b336bd7f)
 
 
-#### This concludes the project of cleaning up this over 15, 000 row data, which is now ready for analysis. I hope you understood and enjoyed the process. Thank you for your time.
+#### This concludes the project of cleaning up this over 15, 000 row data. 
+
+### However, to further make this data ready for analysis, I will be transforming this single merged data table into multiple related table with the intention of reducing redundancies, save spacing and preserving the datas integrity i.e. Database Normalization. View the project [here](https://github.com/olubadero/Data_Cleaning_using_SQL/blob/main/Database_Normalization.md). 
+
+### I hope you understood and enjoyed the process. Thank you for your time.
 
 
